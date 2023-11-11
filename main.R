@@ -1,10 +1,12 @@
 library(shiny)
+library(leaflet)
 
 source("R/type_ev_repartition.R")
 source("R/number_ev_district.R")
 source("R/count_surface_district.R")
 source("R/street_type_repartition.R")
 source("R/bar_chart_opening_renovation.R")
+source("R/map_generation.R")
 
 data <- read.csv2('assets/datasets.csv')
 
@@ -30,7 +32,8 @@ ui <- fluidPage(
         mainPanel(
           plotOutput("bar_chart_year_opening_renovation", width = "100%")
         )
-      )
+      ),
+      leafletOutput("map")
 
     )
 
@@ -74,7 +77,7 @@ server <- function(input, output) {
     return(df_filtered)
   })
 
-    output$bar_chart_year_opening_renovation <- renderPlot({
+  output$bar_chart_year_opening_renovation <- renderPlot({
     type_data <- switch(input$typeData,
                         "Ouvertures" = 2,
                         "Rénovations" = 3,
@@ -85,6 +88,11 @@ server <- function(input, output) {
 
     print(fig)  # La fonction ggplot doit être imprimée pour être affichée dans Shiny
   })
+
+  output$map <- renderLeaflet({
+      create_map()
+  })
+
 
 }
 
