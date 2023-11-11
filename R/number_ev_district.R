@@ -1,5 +1,5 @@
 library(ggplot2)
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 
 create_bubble_charts_count_arrondissement <- function(ev_dataframe) {
     data <- ev_dataframe %>%

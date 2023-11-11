@@ -1,5 +1,5 @@
 library(ggplot2)
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 
 create_histogram_street_type <- function(data) {
   df <- data

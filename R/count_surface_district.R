@@ -1,5 +1,5 @@
 library(ggplot2)
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 
 create_scatter_surfaces <- function(data) {
   # Suppression des codes postaux inférieurs ou égaux à 76000

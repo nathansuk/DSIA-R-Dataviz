@@ -1,5 +1,5 @@
 library(ggplot2)
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 
 create_bar_chart_year_open <- function(data, min_year=NULL, type_data=1) {
 

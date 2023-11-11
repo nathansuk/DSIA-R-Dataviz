@@ -1,5 +1,4 @@
 library(shiny)
-library(tidyverse)
 
 source("R/type_ev_repartition.R")
 source("R/number_ev_district.R")
