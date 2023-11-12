@@ -1,6 +1,7 @@
 library(shiny)
 library(leaflet)
 
+source("R/global_statistics.R")
 source("R/type_ev_repartition.R")
 source("R/number_ev_district.R")
 source("R/count_surface_district.R")
@@ -10,6 +11,8 @@ source("R/map_generation.R")
 source("R/histogram_surfaces.R")
 
 data <- read.csv2('assets/datasets.csv')
+statistics <- get_statistics(data)
+
 
 ui <- fluidPage(
 
@@ -20,6 +23,25 @@ ui <- fluidPage(
     # Main panel
     fluidRow(
       column(width = 12,
+
+      div(class="stat-boxes",
+            div(class = "col stat-box box-red",
+                span(class = "stat-box-title", "Nombre total d'espaces verts"),
+                   span(class = "stat-box-content", statistics[1])
+                ),
+          div(class = "col stat-box box-orange",
+                span(class = "stat-box-title", "Nouveaux espaces verts en 2023"),
+                   span(class = "stat-box-content", statistics[4])
+                ),
+          div(class = "col stat-box box-green",
+                span(class = "stat-box-title", "Surface totale des EV"),
+                   span(class = "stat-box-content", paste(format(statistics[2], big.mark = ","), "m²"))
+                ),
+          div(class = "col stat-box box-purple",
+                span(class = "stat-box-title", "Surface horticole totale"),
+                   span(class = "stat-box-content", paste(format(statistics[3], big.mark = ","), "m²"))
+                ),
+      ),
     tags$h3("Répartition des types d'espaces verts"),
       plotOutput("pie_chart_type_ev", width = "100%"),
 
