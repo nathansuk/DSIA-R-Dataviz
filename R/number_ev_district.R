@@ -14,7 +14,8 @@ create_bubble_charts_count_arrondissement <- function(ev_dataframe) {
       scale_size_continuous(range = c(5, 15)) +
       scale_color_continuous(trans = "sqrt") +
       theme_minimal() +
-      theme(axis.text = element_text(size = 13)) +
+          theme(axis.text = element_text(size = 13),
+          axis.title = element_text(size = 14)) +
       scale_x_continuous(breaks = unique(as.numeric(data$adresse_codepostal)), labels = unique(data$adresse_codepostal))
 
 

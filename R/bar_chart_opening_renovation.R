@@ -9,9 +9,13 @@ create_bar_chart_year_open <- function(data, min_year=NULL, type_data=1) {
   # Exclusion des années = 9999
   data <- data %>% filter(annee_ouverture != 9999)
 
-  # Supprimer les dates si spécifié
+  # Filtrer par année spécifiée
   if (!is.null(min_year)) {
-    data <- data %>% filter(annee_ouverture >= min_year)
+    if (type_data %in% c(1, 2)) {  # Ajout de cette condition pour ne filtrer que pour les ouvertures
+      data <- data %>% filter(annee_ouverture == min_year)
+    } else {
+      data <- data %>% filter(annee_ouverture >= min_year)
+    }
   }
 
   # Compter par date
@@ -33,52 +37,56 @@ create_bar_chart_year_open <- function(data, min_year=NULL, type_data=1) {
     combined_df <- bind_rows(tibble(Année = count_by_year$annee_ouverture,
                                     `Nombre d'ouvertures` = count_by_year$n,
                                     Type = 'Ouvertures'),
-                                    renovations)
+                             renovations)
 
-  fig_both <- ggplot(combined_df, aes(x = as.factor(Année), y = `Nombre d'ouvertures`)) +
-    geom_bar(stat = 'identity', fill = 'blue', color = 'black') +
-    geom_bar(data = combined_df %>% filter(Type == 'Rénovations'),
-             aes(y = `Nombre de rénovations`),
-             stat = 'identity', fill = 'red', color = 'black') +
-    labs(title = "Nombre d'espaces verts ouverts et rénovés par année",
-         x = "Année",
-         y = "Nombre d'ouvertures et rénovations") +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    fig_both <- ggplot(combined_df, aes(x = factor(Année), y = `Nombre d'ouvertures`)) +
+      geom_bar(stat = 'identity', fill = 'blue', color = 'black') +
+      geom_bar(data = combined_df %>% filter(Type == 'Rénovations'),
+               aes(y = `Nombre de rénovations`),
+               stat = 'identity', fill = 'red', color = 'black') +
+      labs(
+        x = "Année",
+        y = "Nombre d'ouvertures et rénovations"
+      ) +
+      theme_minimal() +
+      theme(axis.title = element_text(size = 14),
+            axis.text.x = element_text(angle = 90, hjust = 1))
 
-  return(fig_both)
+    return(fig_both)
 
-  }
-  # Création d'un dataframe avec les ouvertures uniquement et création du graph
-  else if (type_data == 2) {
+  } else if (type_data == 2) {
     combined_df <- tibble(Année = count_by_year$annee_ouverture,
                           `Nombre d'ouvertures` = count_by_year$n,
                           Type = 'Ouvertures')
-    fig_ouvertures <- ggplot(combined_df, aes(x = as.factor(Année), y = `Nombre d'ouvertures`)) +
-    geom_bar(stat = 'identity', fill = 'blue', color = 'black') +
-    geom_bar(data = combined_df %>% filter(Type == 'Ouvertures'),
-             aes(y = `Nombre d'ouvertures`),
-             stat = 'identity', fill = 'red', color = 'black') +
-    labs(title = "Nombre d'espaces verts ouverts et rénovés par année",
-         x = "Année",
-         y = "Nombre d'ouvertures") +
-    theme_minimal()
+    fig_ouvertures <- ggplot(combined_df, aes(x = factor(Année), y = `Nombre d'ouvertures`)) +
+      geom_bar(stat = 'identity', fill = 'blue', color = 'black') +
+      geom_bar(data = combined_df %>% filter(Type == 'Ouvertures'),
+               aes(y = `Nombre d'ouvertures`),
+               stat = 'identity', fill = 'red', color = 'black') +
+      labs(
+        x = "Année",
+        y = "Nombre d'ouvertures"
+      ) +
+      theme_minimal() +
+      theme(axis.title = element_text(size = 14),
+            axis.text.x = element_text(angle = 90, hjust = 1))
 
     return(fig_ouvertures)
 
-  }
-  # Création d'un dataframe avec les rénovations uniquement et création du graph
-  else {
+  } else {
     combined_df <- renovations
-    fig_renovations <- ggplot(combined_df, aes(x = as.factor(Année), y = `Nombre de rénovations`)) +
-    geom_bar(stat = 'identity', fill = 'blue', color = 'black') +
-    geom_bar(data = combined_df %>% filter(Type == 'Rénovations'),
-             aes(y = `Nombre de rénovations`),
-             stat = 'identity', fill = 'red', color = 'black') +
-    labs(title = "Nombre d'espaces verts ouverts et rénovés par année",
-         x = "Année",
-         y = "Nombre de rénovations") +
-    theme_minimal()
+    fig_renovations <- ggplot(combined_df, aes(x = factor(Année), y = `Nombre de rénovations`)) +
+      geom_bar(stat = 'identity', fill = 'blue', color = 'black') +
+      geom_bar(data = combined_df %>% filter(Type == 'Rénovations'),
+               aes(y = `Nombre de rénovations`),
+               stat = 'identity', fill = 'red', color = 'black') +
+      labs(
+        x = "Année",
+        y = "Nombre de rénovations"
+      ) +
+      theme_minimal() +
+      theme(axis.title = element_text(size = 14),
+            axis.text.x = element_text(angle = 90, hjust = 1))
     return(fig_renovations)
   }
 

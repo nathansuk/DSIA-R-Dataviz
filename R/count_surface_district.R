@@ -17,7 +17,8 @@ create_scatter_surfaces <- function(data) {
     labs(x = "Code Postal", y = "Surfaces totales réelles cumulées (m²)") +
     scale_size_continuous(range = c(5, 15)) +
     theme_minimal() +
-    theme(axis.text = element_text(size = 13)) +
+        theme(axis.text = element_text(size = 13),
+          axis.title = element_text(size = 14)) +
     scale_x_discrete(limits = unique(as.factor(surface_par_arrondissement$adresse_codepostal)))
 
   return(scatter_plot)

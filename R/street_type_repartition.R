@@ -27,7 +27,8 @@ create_histogram_street_type <- function(data) {
     geom_bar(stat = 'identity') +
     labs(x = 'Nombre d\'Espaces Verts', y = 'Type de Voie') +
     theme_minimal() +
-    theme(axis.text = element_text(size = 13))
+    theme(axis.text = element_text(size = 13),
+          axis.title = element_text(size = 14))
 
   return(histogram)
 }

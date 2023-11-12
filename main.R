@@ -7,6 +7,7 @@ source("R/count_surface_district.R")
 source("R/street_type_repartition.R")
 source("R/bar_chart_opening_renovation.R")
 source("R/map_generation.R")
+source("R/histogram_surfaces.R")
 
 data <- read.csv2('assets/datasets.csv')
 
@@ -26,13 +27,16 @@ ui <- fluidPage(
       plotOutput("bubble_chart_number_ev_district", width = '100%'),
       tags$h3("Répartition par surface des espaces verts par arrondissement"),
       plotOutput("bubble_chart_surface_ev_district", width = '100%'),
+      tags$h3("Histogramme : Répartition par intervalle de surface"),
+      plotOutput("histo_surfaces", width = '100%'),
       tags$h3("Répartition par surface des espaces verts par type de voie"),
       plotOutput("histo_street_type", width = '100%'),
       tags$h3("Espaces verts ouverts et / ou rénovés par année"),
+
       sidebarLayout(
         sidebarPanel(
           selectInput("typeData", "Sélectionner le type de données", choices = c("Tous", "Ouvertures", "Rénovations"), selected = "Tous"),
-          selectInput("minYear", "Année minimale",
+          selectInput("minYear", "Afficher les données à partir de : ",
                   choices = sort(unique(data$annee_ouverture[data$annee_ouverture != 9999])),
                   selected = NULL)
         ),
@@ -40,6 +44,10 @@ ui <- fluidPage(
           plotOutput("bar_chart_year_opening_renovation", width = "100%")
         )
       ),
+
+
+
+
       tags$h3("Localisation des espaces verts parisiens"),
       leafletOutput("map")
       )
@@ -58,6 +66,10 @@ server <- function(input, output) {
 
     output$bubble_chart_surface_ev_district <- renderPlot({
         create_scatter_surfaces(data)
+    })
+
+   output$histo_surfaces <- renderPlot({
+        create_histogram_surfaces(data)
     })
 
     output$histo_street_type <- renderPlot({
@@ -97,7 +109,7 @@ server <- function(input, output) {
   })
 
   output$map <- renderLeaflet({
-      #create_map()
+      create_map()
   })
 
 

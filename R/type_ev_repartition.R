@@ -9,7 +9,8 @@ create_type_ev_pie_chart <- function(data) {
     coord_polar(theta = "y") +
     labs(fill = "Type d'Espace Vert") +
     theme_minimal() +
-    theme(axis.text = element_text(size = 13)) +
+    theme(axis.text = element_text(size = 13),
+          axis.title = element_text(size = 14)) +
     theme(legend.position = "right")
 
   return(pie_chart)
