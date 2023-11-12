@@ -14,9 +14,10 @@ create_scatter_surfaces <- function(data) {
   scatter_plot <- ggplot(surface_par_arrondissement, aes(x = as.factor(adresse_codepostal), y = surface_totale_reelle)) +
     geom_bar(stat = "identity") +
     scale_fill_gradient(low = "blue", high = "red") +
-    labs(title = "Surfaces cumulées des espaces verts par arrondissement", x = "Code Postal", y = "Surfaces totales réelles cumulées (m²)") +
+    labs(x = "Code Postal", y = "Surfaces totales réelles cumulées (m²)") +
     scale_size_continuous(range = c(5, 15)) +
     theme_minimal() +
+    theme(axis.text = element_text(size = 13)) +
     scale_x_discrete(limits = unique(as.factor(surface_par_arrondissement$adresse_codepostal)))
 
   return(scatter_plot)

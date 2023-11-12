@@ -25,10 +25,9 @@ create_histogram_street_type <- function(data) {
 
   histogram <- ggplot(street_type_counts, aes(x = Count, y = reorder(adresse_typevoie, Count), fill = adresse_typevoie)) +
     geom_bar(stat = 'identity') +
-    labs(title = 'Répartition des Types de Voies', x = 'Nombre d\'Espaces Verts', y = 'Type de Voie') +
+    labs(x = 'Nombre d\'Espaces Verts', y = 'Type de Voie') +
     theme_minimal() +
-    theme(text = element_text(family = "Wix Madefor Text", size = 13)) +
-    theme(axis.text = element_text(size = 15))
+    theme(axis.text = element_text(size = 13))
 
   return(histogram)
 }

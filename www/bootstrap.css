@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&family=Wix+Madefor+Text:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Wix Madefor Text', sans-serif;
+    background-color: #ececec;
+}
+
+.shiny-plot-output {
+    margin-bottom: 30px;
+}
+
+.graph-title {
+    margin-left: 20px;
+}

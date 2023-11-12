@@ -12,16 +12,23 @@ data <- read.csv2('assets/datasets.csv')
 
 ui <- fluidPage(
 
+    includeCSS("www/bootstrap.css"),
     # Application title
     titlePanel("Paris : espaces verts et assimilés"),
 
     # Main panel
-    mainPanel(
-
+    fluidRow(
+      column(width = 12,
+    tags$h3("Répartition des types d'espaces verts"),
       plotOutput("pie_chart_type_ev", width = "100%"),
+
+      tags$h3("Répartition en nombre des espaces verts par arrondissement"),
       plotOutput("bubble_chart_number_ev_district", width = '100%'),
+      tags$h3("Répartition par surface des espaces verts par arrondissement"),
       plotOutput("bubble_chart_surface_ev_district", width = '100%'),
+      tags$h3("Répartition par surface des espaces verts par type de voie"),
       plotOutput("histo_street_type", width = '100%'),
+      tags$h3("Espaces verts ouverts et / ou rénovés par année"),
       sidebarLayout(
         sidebarPanel(
           selectInput("typeData", "Sélectionner le type de données", choices = c("Tous", "Ouvertures", "Rénovations"), selected = "Tous"),
@@ -33,10 +40,10 @@ ui <- fluidPage(
           plotOutput("bar_chart_year_opening_renovation", width = "100%")
         )
       ),
+      tags$h3("Localisation des espaces verts parisiens"),
       leafletOutput("map")
-
+      )
     )
-
 )
 
 server <- function(input, output) {
@@ -86,11 +93,11 @@ server <- function(input, output) {
         fig <- create_bar_chart_year_open(filtered_data(), type_data = type_data)
 
 
-    print(fig)  # La fonction ggplot doit être imprimée pour être affichée dans Shiny
+    print(fig)
   })
 
   output$map <- renderLeaflet({
-      create_map()
+      #create_map()
   })
 
 
