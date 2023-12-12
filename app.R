@@ -1,9 +1,5 @@
-packages <- c("shiny", "leaflet", "dplyr", "ggplot2", "sf", "tidyverse")
-
-new_packages <- packages[!(packages %in% installed.packages()[,"Package"])]
-if(length(new_packages)) install.packages(new_packages)
-
-lapply(packages, library, character.only = TRUE)
+# SI LES PACKAGES NE SONT PAS CORRECTEMENT INSTALLES
+# install.packages(readLines("requirements.txt"))
 
 library(shiny)
 library(leaflet)
