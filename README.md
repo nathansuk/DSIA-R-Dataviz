@@ -14,6 +14,12 @@ cloner le dépôt :
 ```
 git clone https://github.com/nathansuk/DSIA-R-Dataviz
 ```
+Une fois le projet ouvert dans l'IDE (RStudio / Pycharm) exécutez la commande suivante : 
+
+```
+install.packages(readLines("requirements.txt"))
+```
+Exécutez ensuite le fichier app.R
 
 Le fichier **requirements.txt** contient tous les packages nécessaires au bon fonctionnement du dashboard.
 
