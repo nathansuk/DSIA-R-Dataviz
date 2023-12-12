@@ -1,3 +1,4 @@
+install.packages(c("shiny", "leaflet", "dplyr", "ggplot2", "sf", "tidyverse"))
 library(shiny)
 library(leaflet)
 
